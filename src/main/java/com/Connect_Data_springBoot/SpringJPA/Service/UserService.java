@@ -3,6 +3,8 @@ package com.Connect_Data_springBoot.SpringJPA.Service;
 import com.Connect_Data_springBoot.SpringJPA.Entity.User;
 import com.Connect_Data_springBoot.SpringJPA.dto.request.UserCreationRequest;
 import com.Connect_Data_springBoot.SpringJPA.dto.request.UserUpdateRequest;
+import com.Connect_Data_springBoot.SpringJPA.exception.AppException;
+import com.Connect_Data_springBoot.SpringJPA.exception.ErrorCode;
 import com.Connect_Data_springBoot.SpringJPA.repository.UserRespository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +18,9 @@ public class UserService {
 
     public User createUser(UserCreationRequest request){
         User user= new User();
+
+        if(userRespository.existsByUsername(request.getUsername()))
+            throw new AppException(ErrorCode.USER_EXISTED);
 
         user.setUsername(request.getUsername());
         user.setPassword(request.getPassword());

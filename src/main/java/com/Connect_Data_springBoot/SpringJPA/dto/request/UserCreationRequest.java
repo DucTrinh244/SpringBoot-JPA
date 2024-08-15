@@ -1,22 +1,20 @@
 package com.Connect_Data_springBoot.SpringJPA.dto.request;
 
+import com.Connect_Data_springBoot.SpringJPA.exception.ErrorCode;
+import jakarta.validation.constraints.Size;
+
 import java.time.LocalDate;
 
 public class UserCreationRequest {
-    private String id;
+
+    @Size(min=3, message = "USERNAME_INVALID")
     private String username;
+    @Size(min=8, message= "PASSWORD_INVALID")
     private String password;
     private String firstname;
     private String lastname;
     private LocalDate dob;
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
 
     public String getUsername() {
         return username;
